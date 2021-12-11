@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import AuthContext from '@/context/AuthContext';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { FaUser } from 'react-icons/fa';
@@ -12,6 +13,8 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
+  const { register, error } = useContext(AuthContext);
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -19,6 +22,8 @@ export default function RegisterPage() {
       toast.error("Passwords don't match");
       return;
     }
+
+    register({ username, email, password });
   };
 
   return (
